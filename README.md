@@ -37,9 +37,21 @@ The log shows the server sending SYN-ACK packets in response to the SYN floods, 
 
 The Wireshark log clearly demonstrates a SYN flood DoS attack. The log is filled with numerous TCP SYN packets, with the vast majority originating from the IP address `203.0.113.0`, attempting to initiate TCP connections with the web server on port `443`.
 
-A SYN flood attack exploits the TCP handshake process. In a normal TCP connection, the client sends a SYN packet, the server responds with a SYN-ACK packet, and the client completes the handshake with an ACK packet. However, in a SYN flood, the attacker sends a large number of SYN packets but does not complete the handshake. The server allocates resources for each connection attempt, and by sending many SYN packets without completing the handshake, the attacker quickly exhausts the server's resources, preventing it from responding to legitimate connection attempts.
+A SYN flood attack exploits the TCP handshake process. In a normal TCP connection, the client sends a SYN packet, the server responds with a SYN-ACK packet, and the client completes the handshake with an ACK packet. 
 
-The log shows the server sending SYN-ACK packets in response to the SYN floods, but it also shows numerous RST (reset) packets, indicating connections that were not properly established or were reset by the server due to being overwhelmed. The HTTP `504 Gateway Time-out` errors further confirm the server's inability to handle the traffic load under the sustained barrage of SYN requests from `203.0.113.0`.
+![image](https://github.com/user-attachments/assets/04696fb1-95f2-45f6-842b-cb6581c6bdf4)
+
+
+However, in a SYN flood, the attacker sends a large number of SYN packets but does not complete the handshake. The server allocates resources for each connection attempt, and by sending many SYN packets without completing the handshake, the attacker quickly exhausts the server's resources, preventing it from responding to legitimate connection attempts.
+
+
+![image](https://github.com/user-attachments/assets/48fa8368-73b0-41dc-b068-cb5138c9e603)
+
+The log shows the server sending SYN-ACK packets in response to the SYN floods, but it also shows numerous RST (reset) packets, indicating connections that were not properly established or were reset by the server due to being overwhelmed.
+
+![image](https://github.com/user-attachments/assets/0151351e-2f78-423f-b390-5926a6ba3fda)
+
+The HTTP `504 Gateway Time-out` errors further confirm the server's inability to handle the traffic load under the sustained barrage of SYN requests from `203.0.113.0`.
 
 ## Impact and Consequences
 
